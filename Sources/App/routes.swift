@@ -5,7 +5,7 @@ func routes(_ app: Application) throws {
         try await req.view.render("index", ["title": "Hello Vapor!"])
     }
 
-    app.get("hello") { req async -> String in
+    app.get("hello") { _ async -> String in
         "Hello, world!"
     }
 }
