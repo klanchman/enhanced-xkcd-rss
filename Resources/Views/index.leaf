@@ -4,9 +4,13 @@
   <meta charset="utf-8">
 
   <title>#(title)</title>
+
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="#(feedTitle)">
+  <link href="/feed.json" rel="alternate" type="application/feed+json" title="#(feedTitle)">
 </head>
 
 <body>
   <h1>#(title)</h1>
+  <p>Add the <a href="/index.xml">RSS</a> or <a href="/feed.json">JSON</a> feed to your feed reader!</p>
 </body>
 </html>

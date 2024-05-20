@@ -1,0 +1,18 @@
+<img src="#(imageURL)" alt="#(altText)" />
+<hr>
+<a href="#(mobileURL)">Mobile view</a> | <a href="#(explainURL)">Explain XKCD</a>
+#if(altText):
+<p><details><summary><strong>Expand title text&nbsp;</strong></summary>#(altText)</details></p>
+#endif
+#if(news || link || hasExtraParts):
+<hr>
+#endif
+#if(news):
+  <p>#unsafeHTML(news)</p>
+#endif
+#if(link):
+  <p>Extra link: <a href="#(link)">#(link)</a></p>
+#endif
+#if(hasExtraParts):
+  <p><strong>This comic may be interactive. Try viewing it in your web browser!</strong></p>
+#endif

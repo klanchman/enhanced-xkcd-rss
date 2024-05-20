@@ -1,0 +1,18 @@
+<rss version="2.0">
+  <channel>
+  <title>xkcd.com Enhanced</title>
+  <link>https://xkcd.com/</link>
+  <description>A webcomic of romance, sarcasm, math, and language.</description>
+  <language>en</language>
+  #for(item in items):
+    <item>
+      <title>#(item.title)</title>
+      <link>#(item.link)</link>
+      #with(item.description):
+        <description><![CDATA[#extend("description")]]></description>
+      #endwith
+      <pubDate>#date(item.publishDate, "EEE, d MMM yyyy HH:mm:ss Z")</pubDate>
+      <guid>#(item.guid)</guid>
+    </item>
+  #endfor
+</rss>
