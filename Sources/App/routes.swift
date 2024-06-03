@@ -51,11 +51,18 @@ func routes(_ app: Application) throws {
 }
 
 private func getFeedItems(for req: Request) async throws -> [XKCDFeedItem] {
-    // FIXME: Implement for real
-    let comic = try await req.xkcd!.getComic(id: 2914)
+    let comics = await req.application.xkcdFeedStorage.comics
 
-    return [
-        XKCDFeedItem(
+    return comics.map { comic in
+        var comicDateCmps = DateComponents(
+            calendar: Calendar(identifier: .gregorian),
+            timeZone: TimeZone(identifier: "UTC")
+        )
+        comicDateCmps.year = Int(comic.year)
+        comicDateCmps.month = Int(comic.month)
+        comicDateCmps.day = Int(comic.day)
+
+        return XKCDFeedItem(
             title: comic.safeTitle,
             link: "https://xkcd.com/\(comic.num)",
             description: XKCDFeedItem.Description(
@@ -67,10 +74,10 @@ private func getFeedItems(for req: Request) async throws -> [XKCDFeedItem] {
                 link: comic.link?.absoluteString,
                 news: comic.news
             ),
-            publishDate: Date(),
+            publishDate: comicDateCmps.date ?? Date(),
             guid: "\(comic.num)"
         )
-    ]
+    }
 }
 
 extension JSONFeed.Item {
@@ -83,6 +90,7 @@ extension JSONFeed.Item {
         title = item.title
         summary = nil
         image = item.description.imageURL
+        datePublished = item.publishDate
     }
 }
 

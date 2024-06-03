@@ -22,11 +22,13 @@ struct JSONFeed: Content {
         let title: String?
         let summary: String?
         let image: String?
+        let datePublished: Date?
 
         // swiftlint:disable:next nesting
         enum CodingKeys: String, CodingKey {
             case id, url, title, summary, image
             case contentHTML = "content_html"
+            case datePublished = "date_published"
         }
     }
 }

@@ -7,7 +7,7 @@ struct RequestServicesMiddleware: Middleware {
     }
 }
 
-struct XKCDServiceKey: StorageKey {
+private struct XKCDServiceKey: StorageKey {
     typealias Value = XKCDService
 }
 
