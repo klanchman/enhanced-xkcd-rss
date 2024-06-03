@@ -1,6 +1,6 @@
 <img src="#(imageURL)" alt="#(altText)" />
 <hr>
-<a href="#(mobileURL)">Mobile view</a> | <a href="#(explainURL)">Explain XKCD</a>
+<a href="#(mobileURL)">Mobile view</a> | <a href="#(explainURL)">explain xkcd</a>
 #if(altText):
 <p><details><summary><strong>Expand title text&nbsp;</strong></summary>#(altText)</details></p>
 #endif

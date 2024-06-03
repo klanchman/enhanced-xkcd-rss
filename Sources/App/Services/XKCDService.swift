@@ -13,7 +13,7 @@ final class XKCDService {
         self.logger = logger
     }
 
-    /// Fetches an XKCD comic by id, or the latest comic if no id is provided.
+    /// Fetches an xkcd comic by id, or the latest comic if no id is provided.
     ///
     /// - Parameter id: the id of the comic to fetch, or nil to fetch the latest comic
     /// - Returns: an XKCDComic object containing info about the comic

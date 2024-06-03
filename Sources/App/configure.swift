@@ -11,7 +11,7 @@ public func configure(_ app: Application) async throws {
 
     app.xkcdFeedStorage = XKCDFeedStorage()
 
-    app.logger.notice("Fetching latest XKCD comics")
+    app.logger.notice("Fetching latest xkcd comics")
     try? await app.xkcdFeedStorage.getLatestComics(
         service: XKCDService(client: app.client, logger: app.logger)
     )
