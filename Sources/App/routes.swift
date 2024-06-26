@@ -22,10 +22,12 @@ func routes(_ app: Application) throws {
                 items.append(try await .init(from: item, request: req))
             }
 
+            let baseURL = req.application.config.site.baseURL
+
             let response = try await JSONFeed(
                 title: "xkcd.com Enhanced",
-                homePageURL: "https://xkcd.com",
-                feedURL: nil,  // FIXME: Config value?
+                homePageURL: baseURL,
+                feedURL: "\(baseURL)/feed.json",
                 description: "A webcomic of romance, sarcasm, math, and language.",
                 language: "en",
                 items: items

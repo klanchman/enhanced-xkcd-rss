@@ -9,6 +9,7 @@ public func configure(_ app: Application) async throws {
 
     app.views.use(.leaf)
 
+    app.config = try AppConfig()
     app.xkcdFeedStorage = XKCDFeedStorage()
 
     app.logger.notice("Fetching latest xkcd comics")
@@ -26,13 +27,29 @@ public func configure(_ app: Application) async throws {
     try app.queues.startScheduledJobs()
 }
 
+private struct AppConfigKey: StorageKey {
+    typealias Value = AppConfig
+}
+
 private struct XKCDFeedStorageKey: StorageKey {
     typealias Value = XKCDFeedStorage
 }
 
 extension Application {
+    /// A service containing configuration for this app.
+    fileprivate(set) var config: AppConfig {
+        get {
+            // !: This is guaranteed to be set during the configure method above
+            self.storage[AppConfigKey.self]!
+        }
+        set {
+            self.storage[AppConfigKey.self] = newValue
+        }
+    }
+
     fileprivate(set) var xkcdFeedStorage: XKCDFeedStorage {
         get {
+            // !: This is guaranteed to be set during the configure method above
             self.storage[XKCDFeedStorageKey.self]!
         }
         set {
