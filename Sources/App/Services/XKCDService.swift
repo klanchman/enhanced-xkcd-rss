@@ -2,7 +2,7 @@ import Foundation
 import Vapor
 
 final class XKCDService {
-    private static let baseURL = URL(string: "https://xkcd.com")!
+    private static let baseURL = "https://xkcd.com"
     private static let infoPath = "info.0.json"
 
     private let client: any Client
@@ -18,14 +18,14 @@ final class XKCDService {
     /// - Parameter id: the id of the comic to fetch, or nil to fetch the latest comic
     /// - Returns: an XKCDComic object containing info about the comic
     func getComic(id: Int? = nil) async throws -> XKCDComic {
-        let url: URL
+        let url: String
         if let id {
-            url = Self.baseURL.appending(components: String(id), Self.infoPath)
+            url = "\(Self.baseURL)/\(id)/\(Self.infoPath)"
         } else {
-            url = Self.baseURL.appending(component: Self.infoPath)
+            url = "\(Self.baseURL)/\(Self.infoPath)"
         }
 
-        let response = try await client.get(URI(string: url.absoluteString))
+        let response = try await client.get(URI(string: url))
 
         guard response.status == .ok else {
             throw XKCDServiceError.unexpectedStatusCode(response.status)
