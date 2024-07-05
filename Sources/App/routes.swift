@@ -58,8 +58,10 @@ private func getFeedItems(for req: Request) async throws -> [XKCDFeedItem] {
     return comics.map { comic in
         var comicDateCmps = DateComponents(
             calendar: Calendar(identifier: .gregorian),
-            timeZone: TimeZone(identifier: "UTC")
+            // xkcd RSS feed timestamps look to be based on US Eastern time
+            timeZone: TimeZone(identifier: "America/New_York")
         )
+
         comicDateCmps.year = Int(comic.year)
         comicDateCmps.month = Int(comic.month)
         comicDateCmps.day = Int(comic.day)
