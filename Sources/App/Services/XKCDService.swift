@@ -25,6 +25,7 @@ final class XKCDService {
             url = "\(Self.baseURL)/\(Self.infoPath)"
         }
 
+        self.logger.info("Fetching comic at url: \(url)")
         let response = try await client.get(URI(string: url))
 
         guard response.status == .ok else {

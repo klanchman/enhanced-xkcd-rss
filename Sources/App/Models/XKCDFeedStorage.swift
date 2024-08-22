@@ -5,10 +5,18 @@ actor XKCDFeedStorage {
         var newComics = [XKCDComic]()
         let latestComic = try await service.getComic()
 
+        if comics.contains(where: { $0.num == latestComic.num }) && comics.count == count {
+            return
+        }
+
         newComics.append(latestComic)
 
         for id in latestComic.num - count + 1..<latestComic.num {
-            newComics.insert(try await service.getComic(id: id), at: 1)
+            if let existing = comics.first(where: { $0.num == id }) {
+                newComics.insert(existing, at: 1)
+            } else {
+                newComics.insert(try await service.getComic(id: id), at: 1)
+            }
         }
 
         comics = newComics
